@@ -38,14 +38,14 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.targetipBox = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.passwordBox = new System.Windows.Forms.TextBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.usernameBox = new System.Windows.Forms.TextBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.serveripBox = new System.Windows.Forms.TextBox();
             this.attackButton = new System.Windows.Forms.Button();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.durationBox)).BeginInit();
@@ -53,9 +53,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.powerBox)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox7.SuspendLayout();
             this.groupBox8.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -110,13 +110,14 @@
             this.groupBox5.Size = new System.Drawing.Size(287, 79);
             this.groupBox5.TabIndex = 1;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Power";
+            this.groupBox5.Text = "Threads";
+            this.groupBox5.Enter += new System.EventHandler(this.groupBox5_Enter);
             // 
             // powerBox
             // 
             this.powerBox.LargeChange = 1;
             this.powerBox.Location = new System.Drawing.Point(7, 20);
-            this.powerBox.Maximum = 5;
+            this.powerBox.Maximum = 40;
             this.powerBox.Minimum = 1;
             this.powerBox.Name = "powerBox";
             this.powerBox.Size = new System.Drawing.Size(268, 45);
@@ -153,6 +154,26 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Server Info";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(7, 208);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(191, 23);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "Save";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.passwordBox);
+            this.groupBox8.Location = new System.Drawing.Point(7, 153);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(191, 55);
+            this.groupBox8.TabIndex = 8;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Server Password";
+            // 
             // passwordBox
             // 
             this.passwordBox.Location = new System.Drawing.Point(6, 19);
@@ -161,6 +182,16 @@
             this.passwordBox.Size = new System.Drawing.Size(179, 20);
             this.passwordBox.TabIndex = 5;
             // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.usernameBox);
+            this.groupBox7.Location = new System.Drawing.Point(7, 81);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(191, 65);
+            this.groupBox7.TabIndex = 7;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Server Username";
+            // 
             // usernameBox
             // 
             this.usernameBox.Location = new System.Drawing.Point(6, 20);
@@ -168,6 +199,16 @@
             this.usernameBox.Size = new System.Drawing.Size(179, 20);
             this.usernameBox.TabIndex = 3;
             this.usernameBox.Text = "root";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.serveripBox);
+            this.groupBox3.Location = new System.Drawing.Point(7, 20);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(191, 54);
+            this.groupBox3.TabIndex = 6;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Server IP Address";
             // 
             // serveripBox
             // 
@@ -187,46 +228,6 @@
             this.attackButton.Text = "OFFINE";
             this.attackButton.UseVisualStyleBackColor = true;
             this.attackButton.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.serveripBox);
-            this.groupBox3.Location = new System.Drawing.Point(7, 20);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(191, 54);
-            this.groupBox3.TabIndex = 6;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Server IP Address";
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.usernameBox);
-            this.groupBox7.Location = new System.Drawing.Point(7, 81);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(191, 65);
-            this.groupBox7.TabIndex = 7;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Server Username";
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.passwordBox);
-            this.groupBox8.Location = new System.Drawing.Point(7, 153);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(191, 55);
-            this.groupBox8.TabIndex = 8;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Server Password";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(7, 208);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(191, 23);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Save";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // mainForm
             // 
@@ -249,12 +250,12 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }

